@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<title>Create User</title>
+
+<head>
+    Create a username and password!
+</head>
+
+<body>
+<h1>Create a user!</h1>
+
+  <form id="userForm">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="submit" value="Create User">
+  </form>
+  <div id="message"></div>
+
+  <script>
+    document.getElementById('userForm').onsubmit = function(e) {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      // Save user to localStorage
+      let users = JSON.parse(localStorage.getItem('users') || '{}');
+      if (users[username]) {
+        document.getElementById('message').innerText = 'Username already exists!';
+      } else {
+        users[username] = password;
+        localStorage.setItem('users', JSON.stringify(users));
+        document.getElementById('message').innerText = 'User created!';
+      }
+    };
+  </script>
+
+</body>
+
+</html>
